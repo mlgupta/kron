@@ -1,0 +1,564 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1d1d1f;
+  background-color: #f5f5f7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 2rem 1rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: #6e6e73;
+}
+
+.status {
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: #e8e8ed;
+}
+
+.status-checking {
+  color: #6e6e73;
+}
+
+.status-connected {
+  color: #0b7a3b;
+  background: #d8f3e2;
+}
+
+.status-unavailable {
+  color: #9b1c1c;
+  background: #f8d7d7;
+}
+
+.app-nav {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 2rem;
+}
+
+.nav-button {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  font: inherit;
+  color: #1d1d1f;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  border-color: #d2d2d7;
+}
+
+.nav-button.active {
+  color: #ffffff;
+  background: #1d1d1f;
+}
+
+.app-main {
+  flex: 1;
+  margin: 1rem 2rem 2rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.app-main h2 {
+  margin-top: 0;
+}
+
+.placeholder {
+  margin: 0;
+  color: #6e6e73;
+}
+
+.clients-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clients-table th,
+.clients-table td {
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #e8e8ed;
+  vertical-align: top;
+}
+
+.client-name {
+  font-weight: 600;
+}
+
+.client-description {
+  margin-top: 0.2rem;
+  color: #6e6e73;
+  font-size: 0.9rem;
+}
+
+.client-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.secondary-button,
+.danger-button,
+.client-form button {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.secondary-button {
+  color: #1d1d1f;
+  background: #f5f5f7;
+}
+
+.danger-button {
+  color: #9b1c1c;
+  background: #f8d7d7;
+}
+
+.form-error {
+  margin: 0;
+  color: #9b1c1c;
+}
+
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32rem;
+}
+
+.client-form h3 {
+  margin: 0;
+}
+
+.client-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.client-form input,
+.client-form textarea,
+.client-form select,
+.filter-row select,
+.filter-row input {
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: inherit;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.client-form button[type="submit"] {
+  color: #ffffff;
+  background: #1d1d1f;
+}
+
+.timer-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.timer-client-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: min(22rem, 100%);
+  font-weight: 600;
+}
+
+.timer-client-select select {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: inherit;
+}
+
+.timer-client-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.timer-elapsed {
+  margin: 0.5rem 0;
+  font-size: 3.25rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.timer-start,
+.timer-stop {
+  min-width: 8rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.timer-start {
+  color: #ffffff;
+  background: #1d1d1f;
+}
+
+.timer-stop {
+  color: #ffffff;
+  background: #9b1c1c;
+}
+
+.timer-started,
+.timer-session {
+  margin: 0;
+  color: #6e6e73;
+}
+
+.timesheet-layout,
+.reports-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.filter-row,
+.report-periods,
+.report-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.filter-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.report-nav {
+  justify-content: center;
+  align-items: center;
+}
+
+.report-label {
+  margin: 0;
+  min-width: 12rem;
+  text-align: center;
+}
+
+.report-total td {
+  font-weight: 700;
+  border-bottom: none;
+  padding-top: 1rem;
+}
+
+.weekly-report-scroll {
+  overflow-x: auto;
+}
+
+.weekly-report th,
+.weekly-report td.report-hours {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.weekly-report th:first-child,
+.weekly-report td:first-child {
+  text-align: left;
+}
+
+.client-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.client-legend li,
+.client-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.client-swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.client-legend-short {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+}
+
+.client-legend-total {
+  color: #6e6e73;
+  font-variant-numeric: tabular-nums;
+}
+
+.month-calendar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.month-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  background: #e8e8ed;
+  border: 1px solid #e8e8ed;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.month-calendar-weekday,
+.month-calendar-day {
+  background: #ffffff;
+  min-height: 5.5rem;
+  padding: 0.4rem;
+}
+
+.month-calendar-weekday {
+  min-height: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #6e6e73;
+}
+
+.month-calendar-day.empty {
+  background: #f5f5f7;
+}
+
+.month-calendar-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.month-calendar-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.client-chip {
+  display: block;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.12rem 0.28rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report-month-total {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #f5f5f7;
+    background-color: #1d1d1f;
+  }
+
+  .subtitle {
+    color: #a1a1a6;
+  }
+
+  .status {
+    background: #2c2c2e;
+  }
+
+  .status-connected {
+    color: #30d158;
+    background: #12361f;
+  }
+
+  .status-unavailable {
+    color: #ff6961;
+    background: #3a1616;
+  }
+
+  .nav-button {
+    color: #f5f5f7;
+    background: #2c2c2e;
+  }
+
+  .nav-button:hover {
+    border-color: #48484a;
+  }
+
+  .nav-button.active {
+    color: #1d1d1f;
+    background: #f5f5f7;
+  }
+
+  .app-main {
+    background: #2c2c2e;
+    box-shadow: none;
+  }
+
+  .placeholder {
+    color: #a1a1a6;
+  }
+
+  .clients-table th,
+  .clients-table td {
+    border-bottom-color: #3a3a3c;
+  }
+
+  .client-description {
+    color: #a1a1a6;
+  }
+
+  .secondary-button {
+    color: #f5f5f7;
+    background: #3a3a3c;
+  }
+
+  .danger-button {
+    color: #ff6961;
+    background: #3a1616;
+  }
+
+  .form-error {
+    color: #ff6961;
+  }
+
+  .client-form input,
+  .client-form textarea,
+  .client-form select,
+  .filter-row select,
+  .filter-row input {
+    border-color: #48484a;
+    background: #1d1d1f;
+  }
+
+  .client-form button[type="submit"] {
+    color: #1d1d1f;
+    background: #f5f5f7;
+  }
+
+  .timer-client-select select {
+    border-color: #48484a;
+    background: #1d1d1f;
+  }
+
+  .timer-start {
+    color: #1d1d1f;
+    background: #f5f5f7;
+  }
+
+  .timer-started,
+  .timer-session {
+    color: #a1a1a6;
+  }
+
+  .client-legend-total,
+  .month-calendar-weekday {
+    color: #a1a1a6;
+  }
+
+  .month-calendar {
+    background: #3a3a3c;
+    border-color: #3a3a3c;
+  }
+
+  .month-calendar-weekday,
+  .month-calendar-day {
+    background: #2c2c2e;
+  }
+
+  .month-calendar-day.empty {
+    background: #1d1d1f;
+  }
+}
