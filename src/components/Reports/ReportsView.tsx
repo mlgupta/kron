@@ -163,7 +163,7 @@ export function ReportsView() {
 
   return (
     <div className="reports-layout">
-      {error ? <p className="form-error">{error}</p> : null}
+      {error ? <p className="form-error" role="alert">{error}</p> : null}
 
       <div className="report-periods" role="tablist" aria-label="Report period">
         {periods.map((item) => (

@@ -1,4 +1,5 @@
 import { useTimer } from "../../hooks/useTimer";
+import { PlayIcon, StopIcon } from "../AppIcons";
 
 function formatElapsed(totalSeconds: number): string {
   const hours = Math.floor(totalSeconds / 3600);
@@ -40,79 +41,95 @@ export function TimerView() {
 
   return (
     <div className="timer-layout">
-      {error ? <p className="form-error">{error}</p> : null}
+      {error ? <p className="form-error" role="alert">{error}</p> : null}
 
-      {clients.length === 0 ? (
-        <p className="placeholder">Add an active client before starting a timer.</p>
-      ) : running ? (
-        <p className="timer-client-name">{active.client_name}</p>
-      ) : (
-        <label className="timer-client-select">
-          Client
-          <select
-            value={selectedClientId ?? ""}
-            onChange={(event) => setSelectedClientId(Number(event.target.value))}
-          >
-            {clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
-
-      <p className="timer-elapsed" aria-live="polite">
-        {formatElapsed(elapsedSeconds)}
-      </p>
-
-      <div className="timer-actions">
-        {running ? (
-          <button type="button" className="timer-stop" disabled={busy} onClick={() => void stop()}>
-            Stop
-          </button>
+      <div className="timer-primary">
+        {clients.length === 0 ? (
+          <p className="placeholder">Add an active client before starting a timer.</p>
+        ) : running ? (
+          <div className="timer-client-heading">
+            <span className="timer-eyebrow">Tracking time for</span>
+            <p className="timer-client-name">{active.client_name}</p>
+          </div>
         ) : (
-          <button
-            type="button"
-            className="timer-start"
-            disabled={busy || clients.length === 0}
-            onClick={() => void start()}
-          >
-            Start
-          </button>
+          <label className="timer-client-select timer-client-initial">
+            <span>Client</span>
+            <select
+              value={selectedClientId ?? ""}
+              onChange={(event) => setSelectedClientId(Number(event.target.value))}
+            >
+              {clients.map((client) => (
+                <option key={client.id} value={client.id}>
+                  {client.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+
+        <p className="timer-elapsed" aria-live="polite">
+          {formatElapsed(elapsedSeconds)}
+        </p>
+
+        <div className="timer-actions">
+          {running ? (
+            <button
+              type="button"
+              className="timer-stop"
+              disabled={busy}
+              onClick={() => void stop()}
+            >
+              <StopIcon />
+              Stop
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="timer-start"
+              disabled={busy || clients.length === 0}
+              onClick={() => void start()}
+            >
+              <PlayIcon />
+              Start
+            </button>
+          )}
+        </div>
+
+        {running ? (
+          <p className="timer-started">Started {formatStartedAt(active.started_at)}</p>
+        ) : (
+          <p className="timer-started">Select a client and start tracking</p>
         )}
       </div>
 
-      {running ? (
-        <p className="timer-started">Started: {formatStartedAt(active.started_at)}</p>
-      ) : null}
-
       {running && clients.length > 1 ? (
-        <label className="timer-client-select">
-          Switch client
-          <select
-            value={selectedClientId ?? ""}
-            disabled={busy}
-            onChange={(event) => setSelectedClientId(Number(event.target.value))}
-          >
-            {clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </select>
-        </label>
-      ) : null}
+        <div className="timer-switch">
+          <label className="timer-client-select">
+            <span>Switch client</span>
+            <select
+              value={selectedClientId ?? ""}
+              disabled={busy}
+              onChange={(event) => setSelectedClientId(Number(event.target.value))}
+            >
+              {clients.map((client) => (
+                <option key={client.id} value={client.id}>
+                  {client.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
-      {running && selectedClientId !== active.client_id ? (
-        <button
-          type="button"
-          className="secondary-button"
-          disabled={busy}
-          onClick={() => void start()}
-        >
-          Switch and start
-        </button>
+          {selectedClientId !== active.client_id ? (
+            <button
+              type="button"
+              className="secondary-button timer-switch-button"
+              disabled={busy}
+              onClick={() => void start()}
+            >
+              Switch and start
+            </button>
+          ) : null}
+        </div>
       ) : null}
 
       {lastSession ? (

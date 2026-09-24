@@ -143,7 +143,7 @@ export function ClientsList() {
 
   return (
     <div className="clients-layout">
-      {error ? <p className="form-error">{error}</p> : null}
+      {error ? <p className="form-error" role="alert">{error}</p> : null}
 
       {loading ? (
         <p className="placeholder">Loading clients…</p>

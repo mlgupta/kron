@@ -59,6 +59,18 @@ Tauri only produces installers for the OS you are building on.
 
 Unsigned Windows installers may show a SmartScreen warning. Signing requires a code-signing certificate.
 
+## GitHub Releases
+
+Pushing a version tag builds macOS (Apple Silicon and Intel) and Windows installers and attaches them to a **draft** GitHub Release:
+
+```bash
+# Keep package.json, src-tauri/tauri.conf.json, and src-tauri/Cargo.toml in sync.
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+You can also run **Actions → Release → Run workflow** by hand. Review the draft, then publish it.
+
 ## Data location
 
 The SQLite database is stored in the OS application-data directory, not inside the app bundle:

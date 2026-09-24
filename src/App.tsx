@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrandMark, PageIcon } from "./components/AppIcons";
 import { ClientsPage } from "./pages/ClientsPage";
 import { ReportsPage } from "./pages/ReportsPage";
 import { TimerPage } from "./pages/TimerPage";
@@ -40,29 +41,45 @@ function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <div>
-          <h1>Kron</h1>
-          <p className="subtitle">Personal time tracking for consultants</p>
+        <div className="app-identity">
+          <BrandMark />
+          <div>
+            <h1>Kron</h1>
+            <p className="subtitle">Time tracking</p>
+          </div>
         </div>
-        <p className={`status status-${backendStatus}`}>
-          Backend: {backendStatus}
+        <p
+          className={`status status-${backendStatus}`}
+          role="status"
+          aria-live="polite"
+        >
+          <span className="status-dot" />
+          {backendStatus === "connected"
+            ? "Backend connected"
+            : backendStatus === "checking"
+              ? "Connecting…"
+              : "Backend unavailable"}
         </p>
       </header>
 
-      <nav className="app-nav" aria-label="Primary">
+      <nav className="app-nav" aria-label="Primary" role="tablist">
         {pages.map(({ id, label }) => (
           <button
             key={id}
             type="button"
+            role="tab"
+            aria-selected={page === id}
+            aria-controls={`page-${id}`}
             className={page === id ? "nav-button active" : "nav-button"}
             onClick={() => setPage(id)}
           >
-            {label}
+            <PageIcon page={id} />
+            <span>{label}</span>
           </button>
         ))}
       </nav>
 
-      <main className="app-main">
+      <main className="app-main" id={`page-${page}`} role="tabpanel">
         {page === "timer" && <TimerPage />}
         {page === "clients" && <ClientsPage />}
         {page === "timesheet" && <TimesheetPage />}
